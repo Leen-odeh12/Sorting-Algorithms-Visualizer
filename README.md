@@ -10,7 +10,7 @@ Sorting is commonly used as the introductory problem in various Computer Science
 
 <pre>
 # Befor Sorting
-
+<img width="530" alt="Capture" src="https://user-images.githubusercontent.com/123558998/229179231-ddcb82f1-66ab-4f17-a4e9-18a47e703b7e.PNG">
 </pre>
 <pre>
 # After Sorting
