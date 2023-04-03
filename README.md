@@ -6,14 +6,7 @@
 There are many different sorting algorithms, each has its own advantages and limitations.
 
 
-Sorting is commonly used as the introductory problem in various Computer Science classes to showcase a range of algorithmic ideas.
+Sorting is commonly used as the introductory problem in various Computer Science classes to showcase a range of algorithmic ideas.<br>
 
-<pre>
-# Befor Sorting
-<img width="530" alt="Capture" src="https://user-images.githubusercontent.com/123558998/229179231-ddcb82f1-66ab-4f17-a4e9-18a47e703b7e.PNG">
-</pre>
-<pre>
-# After Sorting
-<img width="571" alt="Capture" src="https://user-images.githubusercontent.com/123558998/229141706-d9f48c5b-a08c-4751-b79d-60f58cc308f7.PNG">
+https://user-images.githubusercontent.com/123558998/229558492-12f507e3-eebb-4fb4-9887-213006c585d4.mp4
 
-</pre>
