@@ -1,41 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Alkatra&display=swap');
-        
-      </style>
+    <title>Algo-Visualizer</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alkatra&family=Bebas+Neue&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Lora&display=swap"
+        rel="stylesheet">
+
+
 </head>
+
 <body>
-    <p>Sorting Algorithms Visualizer</p> 
-    <div class="container">
-       
-        <button class="btn bt2"> Randomize</button> 
-        <button class="btn btn1"> Solve</button> 
-        <div>
-        <label>6</label>
-        <input type="range">
-        <label>10</label>
-        <div style="text-align:center">Array Size</div>
-</div>
- </div>
-<div class="merg"> 
-    <div id="one">20 </div>
-    <div id="two">30 </div>
-    <div id="three"> 40</div>
-    <div id="four"> 70</div>
-    <div id="five">90 </div>
-    <div id="six"> 200</div>
-</div>
-
-
-
-
-   <script src="main.js"> </script>
+    <div class="main" id="main">
+        <h1 class="title"> Sorting-Algorithms-Visualizer</h1>
+        <div class="buttons" id="buttons">
+            <button onclick="visualize()" class="button">Visualize</button>
+            <button onclick="randomize()" class="button">Randomize</button>
+            <form oninput="result.value = slider.value">
+              
+                <input type="range" id="slider" class="slider"  step="10" value="10"><br>Size is <output
+                    class="output" name="result" for="slider">10</output>
+                <label>Speed:</label>
+                <select id="speed" class="speed">
+                    <option value="200">0.5x</option>
+                    <option selected value="100">2x</option>
+                    <option value="50">3x</option>
+                    <option value="10">3.5x</option>
+                </select>
+            </form>
+            <button onclick="numOfElements()" class="button">Change size</button>
+            <select id="algo" class="Algo">
+                <option value="bubble">Bubble</option>
+                <option value="insertion">Insertion</option>
+                <option value="selection" >Selection</option>
+            </select>
+        </div>
+        <div class="visual" id="visual">
+            <div class="bar" id="1">
+                <h6 id="h61">1</h6>
+            </div>
+            <div class="bar" id="2">
+                <h6 id="h62">2</h6>
+            </div>
+            <div class="bar" id="3">
+                <h6 id="h63">3</h6>
+            </div>
+            <div class="bar" id="4">
+                <h6 id="h64">4</h6>
+            </div>
+            <div class="bar" id="5">
+                <h6 id="h65">5</h6>
+            </div>
+            <div class="bar" id="6">
+                <h6 id="h66">6</h6>
+            </div>
+            <div class="bar" id="7">
+                <h6 id="h67">7</h6>
+            </div>
+            <div class="bar" id="8">
+                <h6 id="h68">8</h6>
+            </div>
+            <div class="bar" id="9">
+                <h6 id="h69">9</h6>
+            </div>
+          
+        </div>
+    </div>
 </body>
+
 </html>
