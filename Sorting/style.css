@@ -1,68 +1,91 @@
-*{
-    font-family: 'Alkatra', cursive;
+* {
+    font-family: 'Alkatra', cursive;;
+     color:black;
 }
-p{
+
+
+.main {
+    height: 500px;
+    width: 90%;
+    margin: auto;
+}
+
+.title {
+    font-size: 50px;
+    margin: 10px;
+    color:black;
     text-align: center;
 }
-.container{
-    width:400px;
-    height: 60px;
-    background-color:#fb86d7;
+
+.buttons {
+ 
     margin: auto;
-    padding: 30px ;
+    margin-top: 50px;
+    padding: 20px;
+    width: 90%;
+    height: 90px;
     display: flex;
     justify-content: space-around;
-    gap:10px;
-    margin-bottom:50px ;
+    align-items: center;
+    border: groove 1px;
+    border-radius: 20px;
+    background-color:
+    #f392cd;
+    margin-bottom: 40px;
+    font-size: 20px;
 }
 
-.btn{
-    
-    width:100px;
-    height: 30px;
-    border-radius: 10px;
-    border: none;
-    padding-right: 20px;
-}
-.btn:hover{
-    cursor: pointer;
-}
-.merg{
-    width:600px;
-    height:300px;
-    background-color: black;
- margin: auto;
- display: flex;
- justify-content: space-around;
- gap:10px;
-}
-#one,#two,#three,#four,#five,#six{
-    background-color:#fb869d ;
-    width:30px;
-    text-align: center;
-    padding-top:10px;
-}
-#one{
+.button {
+    width:150px;
     height: 50px;
-    
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    font-size: 20px;
+    background-color: white;
 }
-#two{
-    height:120px;
 
+.visual {
+    margin: auto;
+    width: 95%;
+    height: 210px;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    border: groove 1px;
+    border-color:black ;
+    border-radius: 20px;
+    align-items: flex-end;
 }
-#three{
-    height: 150px;
-    
+
+.Algo,
+.speed {
+    border-radius: 20px;
+    width: 80px;
+    font-size: 20px;
+    background-color:white;
+    width:150px;
+    border: none;
+    height: 40px;
 }
-#four{
-    height:200px;
-   
+
+.bar {
+    margin: 0.5px;
+    text-align: center;
+    height: 200px;
+    width: 50px;
+    color: white;
+    padding-bottom: 10px;
+    background-color:	#f3929d ;
 }
-#five{
-    height:220px;
-   
+
+.output {
+    margin-right: 20px;
 }
-#six{
-    height: 260px;
-   
+
+.bar h6 {
+    text-align: center;
+    margin: auto;
+    color: rgb(0, 0, 0);
+    font-size: 15px;
 }
