@@ -1,194 +1,123 @@
-var container = document.getElementById("array");
-let random = true;
+let n = 9;
+const array = [];
 
-function size() {
-  let size = document.getElementById("size").value;
-  return size;
-}
+numOfElements();
 
-// Function to generate the array of blocks
-function generateArray() {
-  if (random) {
-    for (var i = 0; i < size(); i++) {
-      // Return a value from 1 to 100 (both inclusive)
-      var value = Math.ceil(Math.random() * 100);
-
-      // Creating element div
-      var array_ele = document.createElement("div");
-
-      // Adding class 'block' to div
-      array_ele.classList.add("block");
-
-      // Adding style to div
-      array_ele.style.height = `${value * 3}px`;
-      array_ele.style.transform = `translate(${i * 30}px)`;
-
-      // Creating label element for displaying
-      // size of particular block
-      var array_ele_label = document.createElement("label");
-      array_ele_label.classList.add("block_id");
-      array_ele_label.innerText = value;
-
-      // Appending created elements to index.html
-      array_ele.appendChild(array_ele_label);
-      container.appendChild(array_ele);
-      random = false;
+function randomize() {
+    for (let i = 0; i < n; i++) {
+        array[i] = Math.floor((Math.random() * 200) + 1);
     }
-  }
+    displayBars();
 }
-
-// Promise to swap two blocks
-function swap(el1, el2) {
-  return new Promise((resolve) => {
-    // For exchanging styles of two blocks
-    var temp = el1.style.transform;
-    el1.style.transform = el2.style.transform;
-    el2.style.transform = temp;
-
-    window.requestAnimationFrame(function () {
-      // For waiting for .25 sec
-      setTimeout(() => {
-        container.insertBefore(el2, el1);
-        resolve();
-      }, 250);
-    });
-  });
-}
-
-// Asynchronous BubbleSort function
-async function BubbleSort(delay = 300) {
-  var blocks = document.querySelectorAll(".block");
-
-  // BubbleSort Algorithm
-  for (var i = 0; i < blocks.length - 1; i += 1) {
-    for (var j = 0; j < blocks.length - i - 1; j += 1) {
-      // To change background-color of the
-      // blocks to be compared
-      blocks[j].style.backgroundColor = "#FF4949";
-      blocks[j + 1].style.backgroundColor = "#FF4949";
-
-      // To wait for .1 sec
-      await new Promise((resolve) =>
-        setTimeout(() => {
-          resolve();
-        }, delay)
-      );
-
-      console.log("run");
-      var value1 = Number(blocks[j].childNodes[0].innerHTML);
-      var value2 = Number(blocks[j + 1].childNodes[0].innerHTML);
-
-      // To compare value of two blocks
-      if (value1 > value2) {
-        await swap(blocks[j], blocks[j + 1]);
-        blocks = document.querySelectorAll(".block");
-      }
-
-      // Changing the color to the previous one
-      blocks[j].style.backgroundColor = "#6b5b95";
-      blocks[j + 1].style.backgroundColor = "#6b5b95";
+function numOfElements() {
+    array.length = 0;
+    let box = document.getElementById("visual");
+    box.innerHTML = "";
+    let size = document.getElementById("slider").value;
+    n = size;
+    for (var i = 1; i <= size; i++) {
+        let elements = document.createElement('div');
+        elements.setAttribute("id", "" + i);
+        elements.setAttribute("class", "bar");
+        box.appendChild(elements);
+        let h6 = document.createElement('h6');
+        h6.setAttribute("id", "h6" + i);
+        h6.innerHTML = `${i}`;
+        elements.appendChild(h6);
     }
+}
+function visualize() {
+    let algo = document.getElementById("algo").value;
+    if (algo == "bubble") {
+        const swap = bubbleSort([...array]);
+        animate(swap);
 
-    //changing the color of greatest element
-    //found in the above traversal
-    blocks[blocks.length - i - 1].style.backgroundColor = "#13CE66";
-  }
-  blocks[0].style.backgroundColor = "#13CE66";
+    }
+    else if (algo == "insertion") {
+        const swap = insertionSort([...array]);
+        animate(swap);
+    }
+    else if (algo == "selection") {
+        const swap = selectionSort([...array]);
+        animate(swap);
+    }
+    //other algorithms get included here.
 }
 
-async function SelectionSort(delay = 300) {
-  let blocks = document.querySelectorAll(".block");
-  var minIndex = 0;
-  for (let i = 0; i < blocks.length; i++) {
-    minIndex = i; //0
-    blocks[i].style.backgroundColor = "#FF4949";
-
-    for (let j = 1 + i; j < blocks.length; j++) {
-      blocks[j].style.backgroundColor = "#FF4949";
-
-      await new Promise((resolve) =>
-        setTimeout(() => {
-          resolve();
-        }, delay)
-      );
-
-      var value1 = Number(blocks[j].childNodes[0].innerHTML); //1
-      var value2 = Number(blocks[minIndex].childNodes[0].innerHTML); //0
-
-      if (value2 > value1) {
-        if (minIndex !== 0) {
-          blocks[minIndex].style.backgroundColor = "#6b5b95";
+function animate(swaps) {
+    
+    let speed = document.getElementById("speed").value;
+    if (swaps.length == 0) {
+        displayBars();
+        return;
+    }
+    const [i, j] = swaps.shift(0);
+    [array[i], array[j]] = [array[j], array[i]];
+    displayBars([i, j]);
+    setTimeout(function () {
+        animate(swaps);
+    }, speed);
+    
+}
+function displayBars(indices) {
+    let box = document.getElementById("visual");
+    box.innerHTML = "";
+    for (let i = 0; i < array.length; i++) {
+        const bar = document.createElement("div");
+        bar.style.height = array[i] + "px";
+        bar.classList.add("bar");
+        let h6 = document.createElement('h6');
+        h6.setAttribute("id", "h6" + i);
+        h6.innerHTML = `${array[i]}`;
+        bar.appendChild(h6);
+        if (indices && indices.includes(i)) {
+            bar.style.backgroundColor = "rgba(19, 38, 64, 1)";
+            h6.style.color = "white";
         }
-
-        minIndex = j;
-      } else {
-        blocks[j].style.backgroundColor = "#6b5b95";
-      }
+        box.appendChild(bar);
     }
+}
+function bubbleSort(array) {
+    const swaps = [];
+    do {
+        var swapped = false;
+        for (let i = 1; i < array.length; i++) {
+            if (array[i - 1] > array[i]) {
+                swaps.push([i - 1, i]);
+                swapped = true;
+                [array[i - 1], array[i]] = [array[i], array[i - 1]];
+            }
+        }
+    } while (swapped);
+    return swaps;
+}
+function insertionSort(arr) {
+    const swaps = [];
+    for (let i = 1; i < arr.length; i++) {
+        for (let j = i - 1; j > -1; j--) {
+            if (arr[j + 1] < arr[j]) {
+                swaps.push([j + 1, j]);
+                [arr[j + 1], arr[j]] = [arr[j], arr[j + 1]];
+            }
+        }
+    };
 
-    let temp1 = blocks[minIndex].style.height;
-    let temp2 = blocks[minIndex].childNodes[0].innerText;
-    blocks[minIndex].style.height = blocks[i].style.height;
-    blocks[i].style.height = temp1;
-    blocks[minIndex].childNodes[0].innerText =
-      blocks[i].childNodes[0].innerText;
-    blocks[i].childNodes[0].innerText = temp2;
-
-    await new Promise((resolve) =>
-      setTimeout(() => {
-        resolve();
-      }, delay)
-    );
-
-    blocks[minIndex].style.backgroundColor = "  #13CE66";
-
-    blocks[i].style.backgroundColor = " #13CE66";
-  }
+    return swaps;
+}
+function selectionSort(arr) {
+    const swaps = [];
+    for (let i = 0; i < arr.length; i++) {
+        let lowest = i
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[j] < arr[lowest]) {
+                lowest = j
+            }
+        }
+        if (lowest !== i) {
+            swaps.push([i, lowest]);
+            [arr[i], arr[lowest]] = [arr[lowest], arr[i]];
+        }
+    }
+    return swaps
 }
 
-async function InsertionSort(delay = 300) {
-  let blocks = document.querySelectorAll(".block");
-
-  blocks[0].style.backgroundColor = "#FF4949";
-  // blocks[1].style.backgroundColor="darkblue"
-
-  for (let i = 1; i < blocks.length; i++) {
-    let j = i - 1;
-    let current = Number(blocks[i]. childNodes[0].innerHTML);
-
-    let height = blocks[i].style.height;
-
-    blocks[i].style.backgroundColor = "#FF4949";
-
-    await new Promise((resolve) =>
-      setTimeout(() => {
-        resolve();
-      }, delay)
-    );
-    while (j >= 0 && Number(blocks[j].childNodes[0].innerHTML) > current) {
-      blocks[j].style.backgroundColor = "#FF4949";
-      blocks[j + 1].style.height = blocks[j].style.height;
-      blocks[j + 1].childNodes[0].innerText = blocks[j].childNodes[0].innerText;
-
-      j = j - 1;
-
-      await new Promise((resolve) =>
-        setTimeout(() => {
-          resolve();
-        }, delay)
-      );
-      for (let k = i; k >= 0; k--) {
-        blocks[k].style.backgroundColor = "#13CE66";
-      }
-    }
-    blocks[j + 1].style.height = height;
-    blocks[j + 1].childNodes[0].innerHTML = current;
-
-    await new Promise((resolve) =>
-      setTimeout(() => {
-        resolve();
-      }, delay)
-    );
-    blocks[i].style.backgroundColor = " #13CE66";
-  }
-}
